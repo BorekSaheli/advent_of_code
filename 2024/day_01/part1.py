@@ -1,6 +1,6 @@
 from aoc_import import get_data
 
-input_txt, example = get_data(2024, 1)
+input_txt, example_txt = get_data(2024, 1)
 
 
 clean_data: list[str] = input_txt.replace("   ", ",").replace("\n", ",").split(",")
