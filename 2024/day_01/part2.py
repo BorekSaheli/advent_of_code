@@ -1,4 +1,4 @@
-with open("/home/borek/advent_of_code/2024/day_01/input.txt", "r") as file:
+with open("input.txt", "r") as file:
     data = file.read()
 
 

@@ -1,20 +1,13 @@
-with open("/home/borek/advent_of_code/2024/day_01/input.txt", "r") as file:
-    data = file.read()
+from aoc_import import get_data
+
+input_txt, example = get_data(2024, 1)
 
 
-# data = """3   4
-# 4   3
-# 2   5
-# 1   3
-# 3   9
-# 3   3"""
-
-clean_data: list[str] = data.replace("   ", ",").replace("\n", ",").split(",")[0:-1]
-
+clean_data: list[str] = input_txt.replace("   ", ",").replace("\n", ",").split(",")
+# print(clean_data)
 left_data: list[int] = sorted([int(x) for x in clean_data[0::2]])
 
 right_data: list[int] = sorted([int(x) for x in clean_data[1::2]])
-
 # print(left_data)
 distance = [1] * len(left_data)
 
