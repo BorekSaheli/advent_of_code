@@ -1,0 +1,8 @@
+# Ignore the aoc2024 folder
+aoc2024/
+
+# Ignore Python's compiled bytecode folders
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
