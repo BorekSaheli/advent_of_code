@@ -1,16 +1,8 @@
-with open("input.txt", "r") as file:
-    data = file.read()
+from aoc_import import get_data
 
+input_txt, example_txt = get_data(year=2024, day=1)
 
-# data =  """3   4
-# 4   3
-# 2   5
-# 1   3
-# 3   9
-# 3   3
-# """
-
-clean_data: list[str] = data.replace("   ", ",").replace("\n", ",").split(",")[0:-1]
+clean_data: list[str] = input_txt.replace("   ", ",").replace("\n", ",").split(",")
 
 left_data: list[int] = [int(x) for x in clean_data[0::2]]
 
@@ -25,8 +17,5 @@ for left_item in left_data:
             count += 1
     similarity_list.append(left_item * count)
 
-
-print(len(left_data), len(right_data))
-# print(similarity_list)
 
 print(sum(similarity_list))
