@@ -108,8 +108,8 @@ print(A_pos)
 literal_x_counter = 0
 
 for i in range(len(A_pos)):
-    for j in range(i + 1, len(A_pos)):  # Start from i + 1 to avoid self-comparison
-        if A_pos[i] == A_pos[j]:  # Check for duplicate pairs
+    for j in range(i + 1, len(A_pos)):
+        if A_pos[i] == A_pos[j]:
             print(A_pos[i], A_pos[j])
             literal_x_counter += 1
 
