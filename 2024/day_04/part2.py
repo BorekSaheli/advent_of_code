@@ -1,4 +1,5 @@
 import time
+from collections import Counter
 
 start_time = time.time()
 
@@ -32,7 +33,7 @@ for row in range(len(data) - 0):
                     if counter == len(word):
                         xmas_countr += 1
                         print(data[row + 1][col + 1], [row + 1, col + 1], "SE")
-                        A_pos.append([row + 1, col + 1])
+                        A_pos.append((row + 1, col + 1))
                         break
                 else:
                     break
@@ -45,8 +46,8 @@ for row in range(len(data) - 0):
                     # print(f"Matched {word[counter-1]} with {data[row + i][col - i]}")
                     if counter == len(word) - 0:
                         xmas_countr += 1
-                        A_pos.append([row + 1, col - 1])
                         print(data[row + 1][col - 1], [row + 1, col - 1], "SW")
+                        A_pos.append((row + 1, col - 1))
                         break
                 else:
                     break
@@ -60,7 +61,7 @@ for row in range(len(data) - 0):
                     # print(f"Matched {word[counter-1]} with {data[row - i][col + i]}")
                     if counter == len(word) - 0:
                         xmas_countr += 1
-                        A_pos.append([row - 1, col + 1])
+                        A_pos.append((row - 1, col + 1))
                         print(data[row - 1][col + 1], [row - 1, col + 1], "NE")
                         break
                 else:
@@ -74,18 +75,30 @@ for row in range(len(data) - 0):
                     # print(f"Matched {word[counter-1]} with {data[row - i][col - i]}")
                     if counter == len(word) - 0:
                         xmas_countr += 1
-                        A_pos.append([row - 1, col - 1])
+                        A_pos.append((row - 1, col - 1))
                         print(data[row - 1][col - 1], [row - 1, col - 1], "NW")
                         break
                 else:
                     break
 
+# print(A_pos)
+# literal_x_counter = 0
+# for i in range(len(A_pos)):
+#     for j in range(i + 1, len(A_pos)):
+#         if A_pos[i] == A_pos[j]:
+#             literal_x_counter += 1
 
+# print("Total duplicate pairs:", literal_x_counter)
+# print("--- %s seconds ---" % (time.time() - start_time))
+
+
+counts = Counter(A_pos)
 literal_x_counter = 0
-for i in range(len(A_pos)):
-    for j in range(i + 1, len(A_pos)):
-        if A_pos[i] == A_pos[j]:
-            literal_x_counter += 1
 
-print("Total duplicate pairs:", literal_x_counter)
+for count in counts.values():
+    if count > 1:
+        literal_x_counter += 1
+
+
+print(f"Total number of pairs: {literal_x_counter}")
 print("--- %s seconds ---" % (time.time() - start_time))
