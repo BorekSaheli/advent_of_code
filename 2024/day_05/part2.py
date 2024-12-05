@@ -33,8 +33,8 @@ for item in data:
         rules[value]["before"].append(key)
 
 print(rules)
-
-correct_list = []
+print("---")
+wrong_list = []
 mid_values = []
 
 
@@ -43,30 +43,47 @@ for pages in pages_list:
 
     for p in range(len(pages)):
         current_page = pages[p]
-        print(current_page)
         pages_after = pages[p + 1 :]
         check_after = all(item in rules[current_page]["after"] for item in pages_after)
-
-        # print(f"after {pages_after}")
 
         pages_before = pages[:p]
         check_before = all(
             item in rules[current_page]["before"] for item in pages_before
         )
-
-        # print(f"before {pages_before}")
-
-        print(f"b={check_before},after={check_after}")
-
         if not check_before or not check_after:
             wrong_counter += 1
 
-    if wrong_counter == 0:
-        correct_list.append(pages)
-        mid_values.append(pages[len(pages) // 2])
+    if wrong_counter != 0:
+        wrong_list.append(pages)
 
-print(correct_list)
-print(sum(mid_values))
+print(wrong_list)
 
+mid_values = []
 
+fixed_mid = []
+
+for index, pages in enumerate(wrong_list, start=1):
+    fixed = pages.copy()
+    print(f"current list: index {index}: {fixed}")
+
+    swapped = True
+    while swapped:
+        swapped = False
+        for p in range(len(fixed) - 1):
+            current_page = fixed[p]
+            next_page = fixed[p + 1]
+
+            if next_page in rules[current_page]["after"]:
+                print(f"{current_page} should come after {next_page}")
+                fixed[p], fixed[p + 1] = fixed[p + 1], fixed[p]
+                swapped = True
+                print(f"swapped to: {fixed}")
+            # elif next_page in rules[current_page],["before"]:
+            #    print(f"{current_page} should come before {next_page}")
+            #    continue
+        print("---")
+
+    fixed_mid.append(fixed[len(fixed) // 2])
+
+print(sum(fixed_mid))
 print(f"--- {time.time() - start_time} seconds ---")
