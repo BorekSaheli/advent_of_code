@@ -1,3 +1,11 @@
+# Ignore all .txt files in any folder
+*.txt
+
+#igonore zone identifiers (WSL windows to linux file system artifact trash)
+*:Zone.Identifier
+
+
+
 # Ignore the aoc2024 folder
 aoc2024/
 
