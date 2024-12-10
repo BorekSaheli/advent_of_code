@@ -34,8 +34,8 @@ for item in data:
 
 print(rules)
 print("---")
-wrong_list = []
-mid_values = []
+wrong_list: list[list[int]] = []
+mid_values: list[int] = []
 
 
 for pages in pages_list:
@@ -57,8 +57,6 @@ for pages in pages_list:
         wrong_list.append(pages)
 
 print(wrong_list)
-
-mid_values = []
 
 fixed_mid = []
 
@@ -85,5 +83,5 @@ for index, pages in enumerate(wrong_list, start=1):
 
     fixed_mid.append(fixed[len(fixed) // 2])
 
-print(sum(fixed_mid))
+print(f"{sum(fixed_mid)}")
 print(f"--- {time.time() - start_time} seconds ---")
