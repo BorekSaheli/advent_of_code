@@ -1,10 +1,11 @@
 
+
 import time
 from functools import lru_cache
 
 start_time = time.time()
 
-with open("example.txt", "r") as file:
+with open("input.txt", "r") as file:
     data = file.read()
 
 data = data.split()
@@ -14,7 +15,7 @@ data = data.split()
 def process_stone(stone):
     # print(len(stone))
     if stone == '0':
-        stone = ('1',)  # Return a tuple instead of a list
+        stone = ('1')
     elif len(stone) > 1 and len(stone) % 2 == 0:
         second_stone = stone[int(len(stone)/2):]
         leading_0_removed = ""
@@ -28,44 +29,47 @@ def process_stone(stone):
                 counter += 1
                 leading_0_removed += second_stone[i]
         # print(leading_0_removed)
-        # Return a tuple of strings
         stone = (stone[:int(len(stone)/2)], leading_0_removed)
     else:
         # print(stone)
-        stone = (str(int(stone)*2024),)  # Return a single-element tuple
+        stone = (str(int(stone)*2024),)
     return stone
 
-# Removed the cached_stone function since lru_cache handles caching
-def new_arr(curr_arr):
-    new_stone_arr = []
-    for stone in curr_arr:
-        # print(stone) 
-        new_stones = process_stone(stone)  # Use the cached process_stone function
-        # print(new_stones)
+def new_arr_frequency(curr_freq):
+    new_freq = {}
+    for stone, count in curr_freq.items():
+        # print(stone)
+        new_stones = process_stone(stone)
         for ns in new_stones:
-            new_stone_arr.append(ns)
-    return new_stone_arr
+            if ns in new_freq:
+                new_freq[ns] += count
+            else:
+                new_freq[ns] = count
+    return new_freq
 
-no_blinks = 75
+no_blinks =75 
 
-new_array = data
+curr_freq = {} # herw next time use defaultdict
+for stone in data:
+    if stone in curr_freq:
+        curr_freq[stone] += 1
+    else:
+        curr_freq[stone] = 1
+
+# print(f"initial freq: {curr_freq}")
+
+
 
 for blink in range(no_blinks):
-    # print(new_array)
-    # track time how long each iteration takes
-    # start_time2 = time.time()
-    print(f"blinked {blink} times")
-    new_array = new_arr(new_array)
-    # print(f"--- {(time.time() - start_time2)}s seconds ---")
-# print(f" after {no_blinks} blinks: {new_array}")
-print(f"after {no_blinks} blinks of stones: {len(new_array)}")
-# print(int(001))
-# for stone in data:
-#     print(stone)
+    print(f"blinked {blink+1} times")
+    curr_freq = new_arr_frequency(curr_freq)
+    # print(f"new freq: {curr_freq}")
+#
+total_stones = sum(curr_freq.values())
+print(f"after {no_blinks} blinks of stones: {total_stones}")
 
 print("")
 print("=======================================")
 print(f"--- {(time.time() - start_time)}s seconds ---")
 print("=======================================")
-
 
